@@ -1,0 +1,732 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   CENÁRIO
+========================= */
+
+#game {
+
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        #4fc3f7 0%,
+        #b3e5fc 60%,
+        #81c784 60%,
+        #4caf50 100%
+    );
+}
+
+
+/* =========================
+   SOL
+========================= */
+
+.sun {
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    background: #ffd54f;
+
+    border-radius: 50%;
+
+    top: 60px;
+    right: 100px;
+
+    box-shadow:
+        0 0 30px #fff176,
+        0 0 60px #fff176;
+}
+
+
+/* =========================
+   NUVENS
+========================= */
+
+.cloud {
+
+    --scene-shift: 0px;
+    --scene-scale: 1;
+
+    position: absolute;
+
+    width: 130px;
+    height: 40px;
+
+    background: white;
+
+    border-radius: 50px;
+
+    opacity: 0.9;
+
+    transform: translateX(var(--scene-shift)) scale(var(--scene-scale));
+}
+
+.cloud::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 60px;
+    height: 60px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    left: 20px;
+    top: -25px;
+}
+
+.cloud::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    right: 15px;
+    top: -35px;
+}
+
+.cloud1 {
+
+    top: 100px;
+    left: 10%;
+}
+
+.cloud2 {
+
+    top: 180px;
+    left: 50%;
+
+    --scene-scale: 0.7;
+}
+
+.cloud3 {
+
+    top: 70px;
+    left: 75%;
+
+    --scene-scale: 0.5;
+}
+
+
+/* =========================
+   MONTANHAS
+========================= */
+
+.mountain {
+
+    --scene-shift: 0px;
+    --scene-scale: 1;
+
+    position: absolute;
+
+    bottom: 100px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-bottom: 300px solid #78909c;
+
+    transform: translateX(var(--scene-shift)) scale(var(--scene-scale));
+}
+
+.mountain1 {
+
+    left: 5%;
+}
+
+.mountain2 {
+
+    left: 35%;
+
+    --scene-scale: 1.3;
+
+    opacity: 0.8;
+}
+
+
+/* =========================
+   ÁRVORES
+========================= */
+
+.tree {
+
+    --scene-shift: 0px;
+    --scene-scale: 1;
+
+    position: absolute;
+
+    bottom: 100px;
+
+    width: 80px;
+    height: 160px;
+
+    z-index: 2;
+
+    transform: translateX(var(--scene-shift)) scale(var(--scene-scale));
+}
+
+.tree1 {
+
+    left: 20%;
+}
+
+.tree2 {
+
+    right: 15%;
+}
+
+.trunk {
+
+    position: absolute;
+
+    width: 25px;
+    height: 90px;
+
+    background: #795548;
+
+    bottom: 0;
+    left: 28px;
+}
+
+.leaves {
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    background: #2e7d32;
+
+    border-radius: 50%;
+
+    top: 0;
+    left: -10px;
+
+    box-shadow:
+        25px -20px #388e3c,
+        -20px 10px #43a047;
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+#hud {
+
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    width: calc(100% - 40px);
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    z-index: 20;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    text-shadow: 2px 2px 4px #333;
+}
+
+#playerName {
+    min-width: 200px;
+    font-size: 20px;
+}
+
+.btn-voltar-cadastro {
+    background: #f8f9fa;
+    color: #1f2937;
+    margin-top: 15px;
+}
+
+
+/* =========================
+   JOGADOR
+========================= */
+
+#player {
+
+    position: absolute;
+
+    width: 55px;
+    height: 85px;
+
+    left: 120px;
+
+    bottom: 100px;
+
+    z-index: 10;
+
+    transition: transform 0.1s;
+}
+
+
+/* CABEÇA */
+
+.head {
+
+    position: absolute;
+
+    width: 45px;
+    height: 45px;
+
+    background: #ffcc80;
+
+    border-radius: 50%;
+
+    left: 5px;
+
+    top: 0;
+
+    border: 3px solid #333;
+}
+
+
+/* CABELO */
+
+.head::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 45px;
+    height: 20px;
+
+    background: #3e2723;
+
+    border-radius: 30px 30px 5px 5px;
+
+    top: -3px;
+    left: -3px;
+}
+
+
+/* OLHO */
+
+.head::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    background: #222;
+
+    border-radius: 50%;
+
+    right: 8px;
+    top: 20px;
+}
+
+
+/* CORPO */
+
+.body {
+
+    position: absolute;
+
+    width: 40px;
+    height: 45px;
+
+    background: #1565c0;
+
+    border-radius: 10px;
+
+    top: 40px;
+    left: 8px;
+
+    border: 3px solid #333;
+}
+
+
+/* PERNAS */
+
+.leg {
+
+    position: absolute;
+
+    width: 12px;
+    height: 30px;
+
+    background: #263238;
+
+    top: 78px;
+
+    border-radius: 5px;
+}
+
+.leg1 {
+    left: 12px;
+}
+
+.leg2 {
+    right: 12px;
+}
+
+
+/* =========================
+   CHÃO
+========================= */
+
+#ground {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100px;
+
+    bottom: 0;
+
+    background: #795548;
+
+    z-index: 5;
+}
+
+.grass {
+
+    position: absolute;
+
+    width: 100%;
+    height: 15px;
+
+    top: 0;
+
+    background: #2e7d32;
+}
+
+
+/* =========================
+   OBSTÁCULOS
+========================= */
+
+.obstacle {
+
+    position: absolute;
+
+    bottom: 100px;
+
+    z-index: 8;
+
+    border-radius: 8px;
+
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+
+
+/* Pedra */
+
+.rock {
+
+    width: 55px;
+    height: 50px;
+
+    background: #616161;
+
+    border-radius: 50%;
+}
+
+
+/* Caixa */
+
+.box {
+
+    width: 50px;
+    height: 60px;
+
+    background: #8d6e63;
+
+    border: 5px solid #5d4037;
+}
+
+
+/* Cacto */
+
+.cactus {
+
+    width: 35px;
+    height: 70px;
+
+    background: #2e7d32;
+
+    border-radius: 15px;
+}
+
+.cactus::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 20px;
+    height: 35px;
+
+    background: #2e7d32;
+
+    left: -15px;
+    top: 20px;
+
+    border-radius: 15px;
+}
+
+
+/* =========================
+   MOEDA
+========================= */
+
+.coin {
+
+    position: absolute;
+
+    width: 30px;
+    height: 30px;
+
+    background: #ffd600;
+
+    border: 4px solid #ff8f00;
+
+    border-radius: 50%;
+
+    bottom: 200px;
+
+    z-index: 9;
+
+    box-shadow:
+        0 0 10px #ffd600;
+
+    animation: coinSpin 0.8s infinite linear;
+}
+
+@keyframes coinSpin {
+
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(90deg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+#gameOver {
+
+    display: none;
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.75);
+
+    z-index: 100;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    color: white;
+
+    text-align: center;
+}
+
+#gameOver h1 {
+
+    font-size: 65px;
+
+    margin-bottom: 20px;
+
+    text-shadow:
+        0 0 10px red,
+        0 0 20px red;
+}
+
+#gameOver p {
+
+    font-size: 25px;
+
+    margin: 5px;
+}
+
+button {
+
+    margin-top: 25px;
+
+    padding: 15px 35px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: #ffffff;
+
+    transition: 0.2s;
+}
+
+button:hover {
+
+    transform: scale(1.1);
+
+    background: #eeeeee;
+}
+
+
+/* =========================
+   ANIMAÇÃO DO PERSONAGEM
+========================= */
+
+.running {
+
+    animation: running 0.25s infinite alternate;
+}
+
+@keyframes running {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+/* =========================
+   ANIMAÇÃO DE CORRIDA
+========================= */
+
+#player {
+    animation: playerRun 0.18s infinite alternate;
+}
+
+@keyframes playerRun {
+
+    0% {
+        transform: translateY(0px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translateY(-5px) rotate(2deg);
+    }
+}
+
+
+/* Pernas se movimentando */
+
+.leg1 {
+    animation: leg1Run 0.18s infinite alternate;
+}
+
+.leg2 {
+    animation: leg2Run 0.18s infinite alternate;
+}
+
+@keyframes leg1Run {
+
+    0% {
+        transform: rotate(25deg);
+    }
+
+    100% {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes leg2Run {
+
+    0% {
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        transform: rotate(25deg);
+    }
+}
+
+
+/* =========================
+   EFEITO DE VELOCIDADE
+========================= */
+
+.speedLine {
+
+    position: absolute;
+
+    width: 80px;
+    height: 5px;
+
+    background: rgba(255,255,255,0.7);
+
+    border-radius: 5px;
+
+    z-index: 3;
+
+    animation: speedMove 0.6s linear infinite;
+}
+
+@keyframes speedMove {
+
+    from {
+        right: -100px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
